@@ -1,0 +1,34 @@
+/* Estilo principal inspirado en Genshin Impact */ body { font-family: 'Cinzel', serif; background: #fdf8f3 url('../assets/background.jpg') no-repeat center center fixed; background-size: cover; margin: 0; padding: 0; color: #3f2e1d; }
+
+header { background-color: rgba(255, 255, 255, 0.9); padding: 1rem; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+
+header h1 { margin: 0; font-size: 2rem; color: #8c6434; }
+
+main { padding: 2rem; max-width: 800px; margin: auto; background-color: rgba(255, 255, 255, 0.85); border-radius: 12px; box-shadow: 0 4px 8px rgba(0,0,0,0.2); }
+
+h2 { color: #715b39; border-bottom: 2px solid #ccc; padding-bottom: 0.5rem; }
+
+.resina-input { margin-top: 1rem; display: flex; flex-direction: column; gap: 0.5rem; }
+
+input[type="number"] { padding: 0.5rem; font-size: 1rem; border: 1px solid #ccc; border-radius: 6px; }
+
+button { padding: 0.6rem; font-size: 1rem; background-color: #dbc197; border: none; border-radius: 8px; cursor: pointer; color: #3f2e1d; transition: background-color 0.3s; }
+
+button:hover { background-color: #c6aa7e; }
+
+.resina-estado { margin-top: 1.5rem; font-size: 1.1rem; background: #f7f3eb; padding: 1rem; border-radius: 10px; box-shadow: inset 0 0 5px rgba(0,0,0,0.1); }
+
+.personajes { display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; margin-top: 1rem; }
+
+.tarjeta { background-color: #fffdf6; border: 2px solid #e6dac3; border-radius: 10px; box-shadow: 0 3px 6px rgba(0,0,0,0.15); width: 200px; padding: 1rem; text-align: center; transition: transform 0.2s ease-in-out; }
+
+.tarjeta:hover { transform: scale(1.03); }
+
+.tarjeta img { width: 100px; height: 100px; object-fit: contain; margin-bottom: 0.5rem; }
+
+.tarjeta h3 { margin: 0.5rem 0 0.25rem; color: #715b39; font-size: 1.2rem; }
+
+.tarjeta p { margin: 0.2rem 0; font-size: 0.95rem; color: #4a3b2a; }
+
+footer { text-align: center; padding: 1rem; background-color: rgba(255, 255, 255, 0.8); color: #6b4f2b; font-size: 0.9rem; margin-top: 2rem; }
+
