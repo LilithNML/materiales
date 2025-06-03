@@ -1,0 +1,136 @@
+<!DOCTYPE html><html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gestor de Resina - Genshin Impact</title>
+  <link rel="stylesheet" href="styles/main.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header>
+    <h1>Gestor de Resina</h1>
+  </header>  <main>
+    <section id="resina">
+      <h2>Contador de Resina</h2>
+      <div class="resina-input">
+        <label for="resinaActual">¿Cuánta resina tienes?</label>
+        <input type="number" id="resinaActual" min="0" max="200">
+        <button id="guardarBtn">Guardar</button>
+      </div>
+      <div class="resina-estado">
+        <p id="estadoResina">Aún no se ha registrado una cantidad.</p>
+      </div>
+    </section><section id="materiales">
+  <h2>Materiales por Personaje</h2>
+
+  <label for="filtroDia">Filtrar por día:</label>
+  <select id="filtroDia">
+    <option value="lunes">Lunes</option>
+    <option value="martes">Martes</option>
+    <option value="miércoles">Miércoles</option>
+    <option value="jueves">Jueves</option>
+    <option value="viernes">Viernes</option>
+    <option value="sábado">Sábado</option>
+    <option value="domingo">Domingo</option>
+  </select>
+
+  <div class="personajes">
+    <div class="tarjeta" data-dias="lunes,jueves,domingo">
+      <img src="assets/personajes/skirk.png" alt="Skirk">
+      <h3>Skirk</h3>
+      <p><strong>Material:</strong> Filosofía de la Contienda</p>
+      <p><strong>Días:</strong> Lunes, Jueves, Domingo</p>
+    </div>
+
+    <div class="tarjeta" data-dias="martes,viernes,domingo">
+      <img src="assets/personajes/scoffier.png" alt="Scoffier">
+      <h3>Scoffier</h3>
+      <p><strong>Material:</strong> Filosofía de la Justicia</p>
+      <p><strong>Días:</strong> Martes, Viernes, Domingo</p>
+    </div>
+  </div>
+</section>
+
+  </main>  <footer>
+    <p>Hecho por fan para fans de Genshin Impact</p>
+  </footer>  <script>
+    const RESINA_MAX = 200;
+    const RESINA_INTERVALO = 8 * 60 * 1000; // 8 minutos en ms
+
+    const input = document.getElementById("resinaActual");
+    const btn = document.getElementById("guardarBtn");
+    const estado = document.getElementById("estadoResina");
+
+    function guardarResina(valor) {
+      const timestamp = Date.now();
+      localStorage.setItem("resinaValor", valor);
+      localStorage.setItem("resinaTiempo", timestamp);
+    }
+
+    function calcularResina() {
+      const valorGuardado = parseInt(localStorage.getItem("resinaValor"), 10);
+      const tiempoGuardado = parseInt(localStorage.getItem("resinaTiempo"), 10);
+
+      if (isNaN(valorGuardado) || isNaN(tiempoGuardado)) {
+        estado.innerHTML = "Aún no se ha registrado una cantidad.";
+        return;
+      }
+
+      const ahora = Date.now();
+      const tiempoTranscurrido = ahora - tiempoGuardado;
+      const resinaRecuperada = Math.floor(tiempoTranscurrido / RESINA_INTERVALO);
+      let resinaActual = Math.min(valorGuardado + resinaRecuperada, RESINA_MAX);
+
+      const restante = RESINA_MAX - resinaActual;
+      const tiempoRestante = restante * RESINA_INTERVALO;
+      const fechaLlenado = new Date(ahora + tiempoRestante);
+
+      const minutosRestantes = Math.floor((tiempoRestante % (60 * 60 * 1000)) / (60 * 1000));
+      const horasRestantes = Math.floor(tiempoRestante / (60 * 60 * 1000));
+
+      estado.innerHTML = `Tienes <strong>${resinaActual}</strong> de resina.<br>
+        Se llenará completamente en: <strong>${horasRestantes}h ${minutosRestantes}m</strong><br>
+        Hora estimada: <strong>${fechaLlenado.toLocaleString()}</strong>`;
+    }
+
+    btn.addEventListener("click", () => {
+      const valor = parseInt(input.value, 10);
+      if (!isNaN(valor) && valor >= 0 && valor <= RESINA_MAX) {
+        guardarResina(valor);
+        calcularResina();
+      } else {
+        alert("Introduce un número válido entre 0 y 200.");
+      }
+    });
+
+    window.addEventListener("load", () => {
+      calcularResina();
+
+      // Auto-seleccionar el día actual
+      const diasSemana = ["domingo", "lunes", "martes", "miércoles", "jueves", "viernes", "sábado"];
+      const hoy = new Date().getDay();
+      const diaActual = diasSemana[hoy];
+      document.getElementById("filtroDia").value = diaActual;
+      filtrarPersonajes(diaActual);
+
+      // Actualizar el contador cada minuto
+      setInterval(calcularResina, 60000);
+    });
+
+    function filtrarPersonajes(dia) {
+      const tarjetas = document.querySelectorAll(".tarjeta");
+      tarjetas.forEach(tarjeta => {
+        const diasDisponibles = tarjeta.dataset.dias.split(",");
+        if (diasDisponibles.includes(dia)) {
+          tarjeta.classList.add("visible");
+        } else {
+          tarjeta.classList.remove("visible");
+        }
+      });
+    }
+
+    document.getElementById("filtroDia").addEventListener("change", (e) => {
+      filtrarPersonajes(e.target.value);
+    });
+  </script></body>
+</html>
