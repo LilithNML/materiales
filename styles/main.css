@@ -1,34 +1,128 @@
-/* Estilo principal inspirado en Genshin Impact */ body { font-family: 'Cinzel', serif; background: #fdf8f3 url('../assets/background.jpg') no-repeat center center fixed; background-size: cover; margin: 0; padding: 0; color: #3f2e1d; }
+/* Estilo general inspirado en Genshin Impact */
+body {
+  margin: 0;
+  font-family: 'Cinzel', serif;
+  background: #f4f1ea;
+  color: #2e2b29;
+}
 
-header { background-color: rgba(255, 255, 255, 0.9); padding: 1rem; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+header, footer {
+  background-color: #d8cbb9;
+  text-align: center;
+  padding: 1rem;
+  border-bottom: 2px solid #a89b86;
+}
 
-header h1 { margin: 0; font-size: 2rem; color: #8c6434; }
+header h1, footer p {
+  margin: 0;
+  font-size: 1.5rem;
+}
 
-main { padding: 2rem; max-width: 800px; margin: auto; background-color: rgba(255, 255, 255, 0.85); border-radius: 12px; box-shadow: 0 4px 8px rgba(0,0,0,0.2); }
+main {
+  padding: 1rem;
+  max-width: 960px;
+  margin: auto;
+}
 
-h2 { color: #715b39; border-bottom: 2px solid #ccc; padding-bottom: 0.5rem; }
+h2 {
+  border-bottom: 2px solid #a89b86;
+  padding-bottom: 0.5rem;
+  margin-top: 2rem;
+}
 
-.resina-input { margin-top: 1rem; display: flex; flex-direction: column; gap: 0.5rem; }
+/* Estilo para el contador de resina */
+#resina {
+  background: #fffefb;
+  border: 1px solid #d2c5b3;
+  padding: 1rem;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.05);
+  margin-bottom: 2rem;
+}
 
-input[type="number"] { padding: 0.5rem; font-size: 1rem; border: 1px solid #ccc; border-radius: 6px; }
+.resina-input {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+  margin-bottom: 1rem;
+}
 
-button { padding: 0.6rem; font-size: 1rem; background-color: #dbc197; border: none; border-radius: 8px; cursor: pointer; color: #3f2e1d; transition: background-color 0.3s; }
+.resina-input input {
+  padding: 0.5rem;
+  width: 80px;
+  font-size: 1rem;
+}
 
-button:hover { background-color: #c6aa7e; }
+.resina-input button {
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  background-color: #b0a183;
+  border: none;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+}
 
-.resina-estado { margin-top: 1.5rem; font-size: 1.1rem; background: #f7f3eb; padding: 1rem; border-radius: 10px; box-shadow: inset 0 0 5px rgba(0,0,0,0.1); }
+.resina-input button:hover {
+  background-color: #998c75;
+}
 
-.personajes { display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; margin-top: 1rem; }
+/* Estilo para las tarjetas de personajes */
+#materiales {
+  background: #fffefb;
+  border: 1px solid #d2c5b3;
+  padding: 1rem;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.05);
+}
 
-.tarjeta { background-color: #fffdf6; border: 2px solid #e6dac3; border-radius: 10px; box-shadow: 0 3px 6px rgba(0,0,0,0.15); width: 200px; padding: 1rem; text-align: center; transition: transform 0.2s ease-in-out; }
+.personajes {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
 
-.tarjeta:hover { transform: scale(1.03); }
+.tarjeta {
+  display: none;
+  background: #faf7f2;
+  border: 1px solid #cfc1aa;
+  border-radius: 10px;
+  padding: 1rem;
+  text-align: center;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
 
-.tarjeta img { width: 100px; height: 100px; object-fit: contain; margin-bottom: 0.5rem; }
+.tarjeta.visible {
+  display: block;
+}
 
-.tarjeta h3 { margin: 0.5rem 0 0.25rem; color: #715b39; font-size: 1.2rem; }
+.tarjeta img {
+  max-width: 100%;
+  border-radius: 8px;
+}
 
-.tarjeta p { margin: 0.2rem 0; font-size: 0.95rem; color: #4a3b2a; }
+/* Estilo para selector de día */
+#filtroDia {
+  font-size: 1rem;
+  padding: 0.5rem;
+  margin-top: 0.5rem;
+  margin-bottom: 1rem;
+}
 
-footer { text-align: center; padding: 1rem; background-color: rgba(255, 255, 255, 0.8); color: #6b4f2b; font-size: 0.9rem; margin-top: 2rem; }
+/* Responsive */
+@media (max-width: 600px) {
+  header h1, footer p {
+    font-size: 1.2rem;
+  }
 
+  .resina-input {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .resina-input input {
+    width: 100%;
+  }
+}
