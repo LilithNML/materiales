@@ -1,4 +1,4 @@
-/* Variables CSS para colores */
+/* Variables CSS para colores - Tema Claro por defecto */
 :root {
   --color-primary: #d8cbb9; /* Header/Footer background */
   --color-secondary: #a89b86; /* Border color */
@@ -10,101 +10,263 @@
   --color-button-primary-hover: #998c75;
   --color-button-secondary: #cfc1aa; /* Reset button */
   --color-button-secondary-hover: #b0a183;
+  --color-add-btn: #8096a8; /* Used for subtle elements like toggle bg */
+  --color-add-btn-hover: #6a7f8f;
   --color-card-inner-bg: #faf7f2;
   --color-card-inner-border: #cfc1aa;
+  --color-alert-bg: #fdfae7; /* Light warning background */
+  --color-alert-border: #e6c04f; /* Light warning border */
+  --color-alert-text: #8a6d3b; /* Light warning text */
+  --color-form-bg: #fdfbf5; /* Background for add character form */
+  --color-form-border: #e2d9ca; /* Border for add character form */
+  --color-delete-btn: #cc4444; /* Delete button color */
+  --color-delete-btn-hover: #a33636;
+
+  /* RGB para sombras y transparencia */
+  --color-button-primary-rgb: 176, 161, 131;
 }
 
-/* Estilo general inspirado en Genshin Impact */
+/* Variables CSS para Tema Oscuro */
+body.dark-mode {
+  --color-primary: #2c3e50; /* Darker header/footer */
+  --color-secondary: #34495e; /* Darker border */
+  --color-background-light: #222d3a; /* Darker body background */
+  --color-card-background: #2b3a4a; /* Darker section background */
+  --color-card-border: #3d5269; /* Darker section border */
+  --color-text-dark: #ecf0f1; /* Light text color */
+  --color-button-primary: #3498db; /* Blue save button */
+  --color-button-primary-hover: #2980b9;
+  --color-button-secondary: #5a6b7d; /* Gray reset button */
+  --color-button-secondary-hover: #4e5a66;
+  --color-add-btn: #27ae60; /* Used for subtle elements like toggle bg */
+  --color-add-btn-hover: #219d55;
+  --color-card-inner-bg: #324458;
+  --color-card-inner-border: #4a637d;
+  --color-alert-bg: #4a3e2e; /* Darker warning background */
+  --color-alert-border: #a17f3e; /* Darker warning border */
+  --color-alert-text: #f0c36d; /* Darker warning text */
+  --color-form-bg: #3a4b5d; /* Darker background for add character form */
+  --color-form-border: #4e637a; /* Darker border for add character form */
+  --color-delete-btn: #e74c3c; /* Darker delete button color */
+  --color-delete-btn-hover: #c0392b;
+
+  /* RGB para sombras y transparencia */
+  --color-button-primary-rgb: 52, 152, 219;
+}
+
+
+/* Estilo general */
 body {
   margin: 0;
   font-family: 'Cinzel', serif;
   background: var(--color-background-light);
   color: var(--color-text-dark);
-  line-height: 1.6; /* Mejora legibilidad */
+  line-height: 1.8; /* Aumentado para mejor legibilidad y espacio */
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-header, footer {
+header {
   background-color: var(--color-primary);
   text-align: center;
-  padding: 1rem;
+  padding: 1.5rem 1rem; /* Más padding */
   border-bottom: 2px solid var(--color-secondary);
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
-header h1, footer p {
+header h1 {
   margin: 0;
-  font-size: 1.5rem;
-  color: var(--color-text-dark); /* Asegura contraste */
+  font-size: 1.8rem; /* Tamaño de fuente ligeramente más grande */
+  color: var(--color-text-dark);
+  transition: color 0.3s ease;
+}
+
+footer {
+  background-color: var(--color-primary);
+  text-align: center;
+  padding: 1.5rem 1rem; /* Más padding */
+  border-top: 2px solid var(--color-secondary);
+  color: var(--color-text-dark);
+  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
 }
 
 main {
-  padding: 1rem;
+  padding: 2rem 1rem; /* Más padding en el main */
   max-width: 960px;
   margin: auto;
 }
 
 h2 {
   border-bottom: 2px solid var(--color-secondary);
-  padding-bottom: 0.5rem;
-  margin-top: 2rem;
+  padding-bottom: 0.8rem; /* Más espacio bajo el título */
+  margin-top: 3rem; /* Más espacio entre secciones */
+  margin-bottom: 1.5rem; /* Más espacio bajo el título */
+  color: var(--color-text-dark);
+  transition: border-color 0.3s ease, color 0.3s ease;
+}
+
+/* Estilo para las secciones */
+#resina-section, #materiales-section, #add-character-section {
+  background: var(--color-card-background);
+  border: 1px solid var(--color-card-border);
+  padding: 2rem; /* Más padding interno */
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.08); /* Sombra más pronunciada */
+  margin-bottom: 3rem; /* Más espacio entre secciones */
+  transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Formulario para añadir personaje */
+.add-char-form {
+  background: var(--color-form-bg);
+  border: 1px solid var(--color-form-border);
+  padding: 2rem; /* Más padding interno */
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem; /* Más espacio entre grupos de formulario */
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  margin-bottom: 0.8rem; /* Más espacio bajo la etiqueta */
+  font-weight: bold;
   color: var(--color-text-dark);
 }
 
-/* Estilo para el contador de resina */
-#resina-section, #materiales-section {
-  background: var(--color-card-background);
+.form-group input[type="text"],
+.form-group input[type="url"] {
+  padding: 0.8rem; /* Más padding en inputs */
   border: 1px solid var(--color-card-border);
-  padding: 1rem;
-  border-radius: 12px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.05);
-  margin-bottom: 2rem;
+  border-radius: 8px; /* Bordes más redondeados */
+  font-size: 1rem;
+  background-color: var(--color-card-inner-bg);
+  color: var(--color-text-dark);
+  transition: border-color 0.3s ease, background-color 0.3s ease, color 0.3s ease;
 }
 
-.resina-input {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.75rem; /* Aumento de espacio para mejor usabilidad táctil */
-  align-items: center;
-  margin-bottom: 1rem;
-}
-
-.resina-input label {
-  min-width: 150px; /* Asegura que el label no se comprima */
-}
-
-.resina-input input {
-  padding: 0.6rem; /* Aumento de padding */
-  width: 90px; /* Ligeramente más ancho */
-  font-size: 1.05rem;
-  border: 1px solid var(--color-card-border);
-  border-radius: 8px;
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
-}
-
-.resina-input input:focus {
+.form-group input[type="text"]:focus,
+.form-group input[type="url"]:focus {
   outline: none;
   border-color: var(--color-button-primary);
-  box-shadow: 0 0 0 3px rgba(176, 161, 131, 0.3);
+  box-shadow: 0 0 0 4px rgba(var(--color-button-primary-rgb), 0.3); /* Sombra de foco más grande */
 }
 
-.resina-input button {
-  padding: 0.6rem 1.2rem; /* Aumento de padding */
-  font-size: 1rem;
+.days-checkbox-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.days-checkbox-group .checkbox-container { /* Contenedor para los checkboxes */
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem 1.5rem; /* Más espacio entre checkboxes */
+}
+
+.days-checkbox-group label {
+    font-weight: normal;
+    margin-bottom: 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem; /* Más espacio entre checkbox y su label */
+}
+
+.days-checkbox-group input[type="checkbox"] {
+    width: 1.2em; /* Tamaño ligeramente más grande */
+    height: 1.2em;
+    cursor: pointer;
+    margin: 0;
+    accent-color: var(--color-button-primary); /* Color del checkbox al activarse */
+}
+
+
+.add-char-form button[type="submit"] {
+  padding: 1rem 2rem; /* Más padding en el botón */
+  font-size: 1.1rem; /* Tamaño de fuente ligeramente más grande */
   background-color: var(--color-button-primary);
   border: none;
   color: white;
   border-radius: 8px;
   cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s ease;
-  min-width: 100px; /* Asegura un tamaño mínimo para el botón */
+  transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+  margin-top: 1rem; /* Espacio superior */
 }
 
-.resina-input button:hover {
+.add-char-form button[type="submit"]:hover {
   background-color: var(--color-button-primary-hover);
-  transform: translateY(-2px); /* Efecto sutil al pasar el ratón */
+  transform: translateY(-3px); /* Efecto hover más pronunciado */
+  box-shadow: 0 6px 12px rgba(0,0,0,0.15);
 }
 
-.resina-input button:active {
-  transform: translateY(0);
+
+/* Estilos para contador de resina */
+.resina-input-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem; /* Más espacio */
+  align-items: center;
+  margin-bottom: 1.5rem; /* Más espacio */
+}
+
+.resina-input-group label {
+  flex-basis: 100%;
+  font-size: 1.2em;
+  margin-bottom: 0.5rem;
+}
+
+.resina-input-group input[type="number"] {
+  padding: 1rem; /* Más padding en el input */
+  width: 120px; /* Ancho ligeramente mayor */
+  font-size: 1.2rem; /* Fuente más grande */
+  border: 1px solid var(--color-card-border);
+  border-radius: 8px;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+  background-color: var(--color-card-inner-bg);
+  color: var(--color-text-dark);
+}
+
+.resina-input-group input[type="number"]:focus {
+  outline: none;
+  border-color: var(--color-button-primary);
+  box-shadow: 0 0 0 4px rgba(var(--color-button-primary-rgb), 0.3);
+}
+
+.resina-actions {
+  display: flex;
+  gap: 1rem; /* Más espacio entre botones */
+  flex-wrap: wrap;
+  flex-grow: 1; /* Para ocupar el espacio disponible */
+  justify-content: flex-end; /* Alinear a la derecha */
+}
+
+.resina-input-group button {
+  padding: 1rem 2rem; /* Más padding */
+  font-size: 1.1rem; /* Más grande */
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease, color 0.3s ease, box-shadow 0.3s ease;
+  min-width: 140px; /* Ancho mínimo para botones */
+}
+
+#guardarBtn {
+  background-color: var(--color-button-primary);
+  color: white;
+}
+
+#guardarBtn:hover {
+  background-color: var(--color-button-primary-hover);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.15);
 }
 
 .secondary-btn {
@@ -114,144 +276,356 @@ h2 {
 
 .secondary-btn:hover {
   background-color: var(--color-button-secondary-hover);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.15);
 }
 
+
 .resina-estado p {
-  font-size: 1.1rem;
+  font-size: 1.3rem; /* Texto de estado más grande */
   color: var(--color-text-dark);
+  font-weight: bold;
 }
 
 .feedback-message {
-  color: green;
-  margin-top: -0.5rem; /* Ajuste para que quede cerca del input */
-  margin-bottom: 0.5rem;
-  height: 1.2em; /* Mantiene el espacio incluso si no hay mensaje */
-  font-size: 0.9em;
+  margin-top: 1rem; /* Más espacio */
+  margin-bottom: 1.5rem;
+  height: 1.5em; /* Altura para el mensaje */
+  font-size: 1em;
   opacity: 0;
   transition: opacity 0.5s ease;
+  color: var(--color-text-dark);
+  font-weight: bold;
 }
 
 .feedback-message.show {
   opacity: 1;
 }
 
-/* Estilo para el selector de día */
-#filtroDia {
-  font-size: 1rem;
-  padding: 0.6rem; /* Aumento de padding */
-  margin-top: 0.5rem;
-  margin-bottom: 1rem;
+/* Alerta de Resina */
+.resina-alerta {
+  background-color: var(--color-alert-bg);
+  border: 1px solid var(--color-alert-border);
+  color: var(--color-alert-text);
+  padding: 1rem; /* Más padding */
+  border-radius: 8px;
+  margin-top: 1.5rem; /* Más espacio */
+  font-weight: bold;
+  text-align: center;
+  animation: pulse 1.5s infinite;
+  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.02); }
+  100% { transform: scale(1); }
+}
+
+.alerta-config {
+  margin-top: 2rem; /* Más espacio */
+  display: flex;
+  align-items: center;
+  gap: 0.8rem; /* Más espacio */
+}
+
+.alerta-config input[type="checkbox"] {
+  width: 1.4em; /* Checkbox más grande */
+  height: 1.4em;
+  cursor: pointer;
+  accent-color: var(--color-button-primary); /* Color del checkbox */
+}
+
+.alerta-config label {
+  font-size: 1.05em; /* Fuente ligeramente más grande */
+  color: var(--color-text-dark);
+}
+
+
+/* Estilo para el selector de día y búsqueda */
+.material-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem; /* Más espacio */
+  margin-top: 1rem;
+  margin-bottom: 2rem; /* Más espacio */
+  align-items: flex-end; /* Alinear al final para que los labels estén arriba de inputs */
+}
+
+.material-filters .filter-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem; /* Espacio entre label y input */
+}
+
+.material-filters label {
+  font-size: 1.05em;
+  color: var(--color-text-dark);
+  font-weight: bold;
+}
+
+#filtroDia, #buscarPersonaje {
+  font-size: 1.05rem;
+  padding: 0.8rem; /* Más padding */
   border: 1px solid var(--color-card-border);
   border-radius: 8px;
   background-color: var(--color-card-inner-bg);
   color: var(--color-text-dark);
   cursor: pointer;
-  appearance: none; /* Elimina estilos predeterminados del navegador */
-  background-image: url('data:image/svg+xml;utf8,<svg fill="%232e2b29" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>'); /* Flecha personalizada */
-  background-repeat: no-repeat;
-  background-position: right 0.7em top 50%, 0 0;
-  background-size: 0.8em auto, 100%;
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, color 0.3s ease;
 }
 
-#filtroDia:focus {
+#filtroDia {
+  appearance: none;
+  background-image: url('data:image/svg+xml;utf8,<svg fill="%232e2b29" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>');
+  background-repeat: no-repeat;
+  background-position: right 0.8em center; /* Centrar verticalmente */
+  background-size: 0.9em auto; /* Tamaño ligeramente más grande */
+}
+/* Dark mode SVG arrow for select */
+body.dark-mode #filtroDia {
+    background-image: url('data:image/svg+xml;utf8,<svg fill="%23ecf0f1" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>');
+}
+
+
+#filtroDia:focus, #buscarPersonaje:focus {
   outline: none;
   border-color: var(--color-button-primary);
-  box-shadow: 0 0 0 3px rgba(176, 161, 131, 0.3);
+  box-shadow: 0 0 0 4px rgba(var(--color-button-primary-rgb), 0.3);
 }
 
 /* Estilo para las tarjetas de personajes */
 .personajes {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); /* Min-width un poco más grande */
-  gap: 1.5rem; /* Aumento de espacio */
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Tarjetas un poco más grandes */
+  gap: 2rem; /* Más espacio entre tarjetas */
   margin-top: 1rem;
 }
 
 .tarjeta {
   background: var(--color-card-inner-bg);
   border: 1px solid var(--color-card-inner-border);
-  border-radius: 10px;
-  padding: 1rem;
+  border-radius: 12px; /* Más redondeado */
+  padding: 1.5rem; /* Más padding */
   text-align: center;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-  display: flex; /* Para mejor control del contenido */
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1); /* Sombra mejorada */
+  display: flex;
   flex-direction: column;
   align-items: center;
-  transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.3s ease, visibility 0.3s ease;
-  opacity: 0; /* Inicialmente oculto para transición */
+  transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.3s ease, visibility 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
+  opacity: 0;
   visibility: hidden;
-  position: absolute; /* Para que la transición de ocultar no afecte el layout */
-  width: calc(100% - 2rem); /* Ocupa el ancho del padding */
-  box-sizing: border-box; /* Incluye padding y borde en el ancho */
+  position: absolute;
+  width: calc(100% - 3rem); /* Ajuste por el padding de la tarjeta */
+  box-sizing: border-box;
 }
 
 .tarjeta.visible {
   opacity: 1;
   visibility: visible;
-  position: static; /* Vuelve a tomar su lugar en el layout */
+  position: static;
 }
 
 .tarjeta img {
-  max-width: 100%;
-  height: auto; /* Mantiene la proporción de la imagen */
-  border-radius: 8px;
-  margin-bottom: 0.8rem; /* Espacio debajo de la imagen */
+  max-width: 120px; /* Tamaño máximo para la imagen */
+  height: 120px; /* Asegurar que la imagen sea cuadrada */
+  object-fit: cover; /* Recortar imagen para cubrir el espacio */
+  border-radius: 50%; /* Hacer la imagen redonda */
+  margin-bottom: 1rem; /* Más espacio debajo de la imagen */
+  border: 3px solid var(--color-secondary); /* Borde alrededor de la imagen */
 }
 
 .tarjeta h3 {
   margin-top: 0;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.6rem;
   color: var(--color-text-dark);
+  font-size: 1.25rem; /* Título de personaje más grande */
 }
 
 .tarjeta p {
-  margin: 0.2rem 0;
+  margin: 0.3rem 0; /* Más espacio */
   color: var(--color-text-dark);
-  font-size: 0.95rem;
+  font-size: 1rem; /* Texto de detalles ligeramente más grande */
 }
 
+.tarjeta .delete-btn {
+    background-color: var(--color-delete-btn);
+    color: white; /* Color del SVG será blanco */
+    border: none;
+    padding: 0.6rem 1rem; /* Más padding */
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.9em;
+    margin-top: 1rem; /* Más espacio superior */
+    transition: background-color 0.2s ease, transform 0.2s ease;
+    display: flex; /* Para centrar el SVG */
+    align-items: center;
+    gap: 0.4rem; /* Espacio entre SVG y texto */
+}
+
+.tarjeta .delete-btn svg {
+    width: 1.2em; /* Tamaño del SVG */
+    height: 1.2em;
+    fill: currentColor; /* El SVG hereda el color del texto del botón */
+}
+
+.tarjeta .delete-btn:hover {
+    background-color: var(--color-delete-btn-hover);
+    transform: translateY(-2px);
+}
+
+
+/* Theme Toggle Button - Estilos robustos y visibles */
+.theme-toggle {
+  background: var(--color-button-secondary);
+  border: 1px solid var(--color-secondary);
+  border-radius: 50%;
+  width: 45px; /* Tamaño ligeramente más grande */
+  height: 45px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.6rem; /* Tamaño del SVG dentro del botón */
+  cursor: pointer;
+  position: absolute;
+  right: 1.5rem; /* Más separado del borde */
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--color-text-dark); /* El SVG heredará este color */
+  transition: all 0.3s ease, transform 0.2s ease;
+  z-index: 1000;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.theme-toggle svg {
+    width: 1em; /* Asegurar que el SVG ocupe el tamaño de la fuente */
+    height: 1em;
+    fill: currentColor; /* Esto hace que el SVG use el 'color' del botón */
+    transition: fill 0.3s ease;
+}
+
+.theme-toggle:hover {
+  background-color: var(--color-button-primary-hover);
+  transform: translateY(-3px) translateY(-50%); /* Efecto hover y centrado */
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+
 /* Responsive */
-@media (max-width: 600px) {
-  header h1, footer p {
-    font-size: 1.2rem;
-  }
-
-  .resina-input {
+@media (max-width: 768px) {
+  .resina-input-group {
     flex-direction: column;
-    align-items: stretch; /* Estira los elementos para ocupar el ancho */
+    align-items: flex-start;
   }
-
-  .resina-input input,
-  .resina-input button {
+  .resina-input-group input {
     width: 100%;
-    box-sizing: border-box; /* Asegura que padding y borde no aumenten el ancho */
+    max-width: 150px; /* Mantener un tamaño razonable en tablet */
   }
-
-  .resina-input label {
-    width: 100%; /* El label también ocupa todo el ancho */
+  .resina-input-group label {
     text-align: left;
   }
-
-  #filtroDia {
+  .resina-actions {
     width: 100%;
-    box-sizing: border-box;
+    justify-content: space-around;
+    margin-top: 1rem;
+  }
+  .resina-input-group button {
+    flex-grow: 1;
+    min-width: unset;
+  }
+  .material-filters {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .material-filters .filter-group {
+      width: 100%;
+  }
+  #filtroDia, #buscarPersonaje {
+      width: 100%;
+  }
+}
+
+
+@media (max-width: 600px) {
+  header h1, footer p {
+    font-size: 1.4rem;
+  }
+  header h1 {
+    margin-right: 2rem; /* Espacio para el botón de tema */
+  }
+
+  main {
+    padding: 1.5rem 0.8rem;
+  }
+
+  #resina-section, #materiales-section, #add-character-section {
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .add-char-form {
+    padding: 1.5rem;
+    gap: 1rem;
+  }
+
+  .days-checkbox-group .checkbox-container {
+      flex-direction: column; /* Apila los checkboxes en pantallas pequeñas */
+      gap: 0.8rem;
   }
 
   .personajes {
-    grid-template-columns: 1fr; /* Una columna en pantallas muy pequeñas */
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
   }
 
   .tarjeta {
-    padding: 0.8rem;
+    padding: 1.2rem;
+    width: calc(100% - 2.4rem); /* Ajuste por padding */
+  }
+  .theme-toggle {
+    font-size: 1.4rem;
+    width: 40px;
+    height: 40px;
+    right: 0.8rem;
+  }
+  .resina-input-group input {
+      width: calc(100% - 2rem); /* Asegurarse que ocupe casi todo el ancho */
+      max-width: unset;
+  }
+  .resina-actions button {
+      font-size: 1rem;
+      padding: 0.8rem 1.5rem;
+  }
+  .alerta-config label {
+    font-size: 0.9em;
   }
 }
 
 @media (max-width: 400px) {
-  main {
-    padding: 0.5rem; /* Menos padding en pantallas muy pequeñas */
+  header h1 {
+    font-size: 1.2rem;
   }
-  .resina-input {
-    gap: 0.5rem;
+  .theme-toggle {
+    font-size: 1.2rem;
+    width: 35px;
+    height: 35px;
+    right: 0.5rem;
+  }
+  .resina-actions button {
+    min-width: unset;
+  }
+  .feedback-message {
+    font-size: 0.85em;
+  }
+  .resina-estado p {
+    font-size: 1.1rem;
+  }
+  h2 {
+    font-size: 1.4rem;
+  }
+  .add-char-form button[type="submit"],
+  .resina-input-group button {
+    font-size: 0.95rem;
+    padding: 0.8rem 1.2rem;
   }
 }
