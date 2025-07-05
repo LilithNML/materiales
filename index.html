@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Gestor de Resina para Genshin Impact. Rastrea tu resina actual y el tiempo para que se llene completamente. Descubre qué materiales de personaje están disponibles cada día." />
+  <meta name="description" content="Gestor de Resina para Genshin Impact. Rastrea tu resina actual y el tiempo para que se llene completamente. Descubre qué materiales de personaje están disponibles cada día."
+/>
   <title>Gestor de Resina - Genshin Impact</title>
   <link rel="stylesheet" href="styles/main.css" />
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500&display=swap" rel="stylesheet">
@@ -11,38 +12,103 @@
 <body>
   <header>
     <h1>Gestor de Resina</h1>
+    <button id="themeToggle" class="theme-toggle" aria-label="Cambiar tema claro/oscuro">
+      <svg class="icon-moon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" stroke="currentColor" stroke-width="2" fill="currentColor"/>
+      </svg>
+      <svg class="icon-sun" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="display: none;">
+        <circle cx="12" cy="12" r="5" stroke="currentColor" stroke-width="2"/>
+        <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" stroke="currentColor" stroke-width="2"/>
+      </svg>
+    </button>
   </header>
   <main>
     <section id="resina-section" aria-labelledby="resina-heading" role="region">
       <h2 id="resina-heading">Contador de Resina</h2>
-      <div class="resina-input">
+      <div class="resina-input-group">
         <label for="resinaActual">¿Cuánta resina tienes?</label>
         <input type="number" id="resinaActual" min="0" max="200" placeholder="Ej: 120">
-        <button id="guardarBtn" type="button">Guardar</button>
-        <button id="resetBtn" type="button" class="secondary-btn">Restablecer</button>
+        <div class="resina-actions">
+          <button id="guardarBtn" type="button">Guardar</button>
+          <button id="resetBtn" type="button" class="secondary-btn">Restablecer</button>
+        </div>
       </div>
       <div class="feedback-message" aria-live="polite"></div>
       <div class="resina-estado" aria-live="polite">
         <p id="estadoResina">Aún no se ha registrado una cantidad.</p>
       </div>
+
+      <div class="alerta-config">
+        <input type="checkbox" id="activarAlerta">
+        <label for="activarAlerta">Activar alerta cuando la resina esté por llenarse (menos de 20)</label>
+      </div>
+       <div id="resinaAlerta" class="resina-alerta" aria-live="assertive" role="alert" style="display: none;">
+         ¡Tu resina está casi llena!
+       </div>
+    </section>
+
+    <section id="add-character-section" aria-labelledby="add-char-heading" role="region">
+        <h2 id="add-char-heading">Añadir Personaje Personalizado</h2>
+        <form id="addCharacterForm" class="add-char-form">
+            <div class="form-group">
+                <label for="charName">Nombre del Personaje:</label>
+                <input type="text" id="charName" required>
+            </div>
+            <div class="form-group">
+                <label for="charMaterial">Nombre del Material:</label>
+                <input type="text" id="charMaterial" required>
+            </div>
+            <div class="form-group days-checkbox-group">
+                <label>Días de Farmeo:</label>
+                <div class="checkbox-container">
+                    <input type="checkbox" id="dayLunes" value="lunes"><label for="dayLunes">Lunes</label>
+                    <input type="checkbox" id="dayMartes" value="martes"><label for="dayMartes">Martes</label>
+                    <input type="checkbox" id="dayMiércoles" value="miércoles"><label for="dayMiércoles">Miércoles</label>
+                    <input type="checkbox" id="dayJueves" value="jueves"><label for="dayJueves">Jueves</label>
+                    <input type="checkbox" id="dayViernes" value="viernes"><label for="dayViernes">Viernes</label>
+                    <input type="checkbox" id="daySábado" value="sábado"><label for="daySábado">Sábado</label>
+                    <input type="checkbox" id="dayDomingo" value="domingo"><label for="dayDomingo">Domingo</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="charImage">URL de la Imagen (opcional):</label>
+                <input type="url" id="charImage" placeholder="Ej: https://example.com/imagen.png">
+            </div>
+            <button type="submit">Añadir Personaje</button>
+        </form>
+        <div id="addCharFeedback" class="feedback-message" aria-live="polite"></div>
     </section>
 
     <section id="materiales-section" aria-labelledby="materiales-heading" role="region">
       <h2 id="materiales-heading">Materiales por Personaje</h2>
 
-      <label for="filtroDia">Filtrar por día:</label>
-      <select id="filtroDia">
-        <option value="lunes">Lunes</option>
-        <option value="martes">Martes</option>
-        <option value="miércoles">Miércoles</option>
-        <option value="jueves">Jueves</option>
-        <option value="viernes">Viernes</option>
-        <option value="sábado">Sábado</option>
-        <option value="domingo">Domingo</option>
-      </select>
+      <div class="material-filters">
+        <div class="filter-group">
+            <label for="filtroDia">Filtrar por día:</label>
+            <select id="filtroDia">
+            <option value="lunes">Lunes</option>
+            <option value="martes">Martes</option>
+            <option value="miércoles">Miércoles</option>
+            <option value="jueves">Jueves</option>
+            <option value="viernes">Viernes</option>
+            <option value="sábado">Sábado</option>
+            <option value="domingo">Domingo</option>
+            <option value="todos">Todos los Días</option>
+            </select>
+        </div>
+        <div class="filter-group">
+            <label for="buscarPersonaje">Buscar personaje:</label>
+            <input type="text" id="buscarPersonaje" placeholder="Ej: Klee">
+        </div>
+      </div>
 
-      <div class="personajes">
+      <div class="personajes" id="personajesContainer">
         <div class="tarjeta" data-dias="lunes,jueves,domingo">
+          <button class="delete-button" aria-label="Eliminar personaje">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M3 6h18M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6h14zM10 11v6M14 11v6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+          </button>
           <img src="https://safebooru.org//images/269/52ea92987b638fff7233f59f60459731c808ca5c.png" alt="Imagen de Skirk, personaje de Genshin Impact">
           <h3>Skirk</h3>
           <p><strong>Material:</strong> Filosofía de la Contienda</p>
@@ -50,9 +116,50 @@
         </div>
 
         <div class="tarjeta" data-dias="martes,viernes,domingo">
-          <img src="https://safebooru.org//images/1039/c60de1767eced8476a5da534b79f1ac01bbea7b6.png" alt="Imagen de Escoffier, personaje de Genshin Impact">
-          <h3>Escoffier</h3>
-          <p><strong>Material:</strong> Filosofía de la Justicia</p>
+          <button class="delete-button" aria-label="Eliminar personaje">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M3 6h18M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6h14zM10 11v6M14 11v6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+          <img src="https://safebooru.org//images/1039/c60de1767eced8476a5da534b79f170f3f6194b6.png" alt="Imagen de Yae Miko, personaje de Genshin Impact">
+          <h3>Yae Miko</h3>
+          <p><strong>Material:</strong> Filosofía de la Luz</p>
+          <p><strong>Días:</strong> Martes, Viernes, Domingo</p>
+        </div>
+
+        <div class="tarjeta" data-dias="miércoles,sábado,domingo">
+          <button class="delete-button" aria-label="Eliminar personaje">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M3 6h18M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6h14zM10 11v6M14 11v6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+          <img src="https://safebooru.org//images/362/b3b194090b8f05781a7776d63e5b6028682855cf.png" alt="Imagen de Klee, personaje de Genshin Impact">
+          <h3>Klee</h3>
+          <p><strong>Material:</strong> Filosofía de la Libertad</p>
+          <p><strong>Días:</strong> Miércoles, Sábado, Domingo</p>
+        </div>
+
+        <div class="tarjeta" data-dias="lunes,jueves,domingo">
+          <button class="delete-button" aria-label="Eliminar personaje">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M3 6h18M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6h14zM10 11v6M14 11v6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+          <img src="https://safebooru.org//images/362/b3b194090b8f05781a7776d63e5b6028682855cf.png" alt="Imagen de Nahida, personaje de Genshin Impact">
+          <h3>Nahida</h3>
+          <p><strong>Material:</strong> Filosofía de la Sabiduría</p>
+          <p><strong>Días:</strong> Lunes, Jueves, Domingo</p>
+        </div>
+
+        <div class="tarjeta" data-dias="martes,viernes,domingo">
+          <button class="delete-button" aria-label="Eliminar personaje">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M3 6h18M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6h14zM10 11v6M14 11v6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+          <img src="https://safebooru.org//images/1039/c60de1767eced8476a5da534b79f170f3f6194b6.png" alt="Imagen de Albedo, personaje de Genshin Impact">
+          <h3>Albedo</h3>
+          <p><strong>Material:</strong> Filosofía de la Poesía</p>
           <p><strong>Días:</strong> Martes, Viernes, Domingo</p>
         </div>
       </div>
